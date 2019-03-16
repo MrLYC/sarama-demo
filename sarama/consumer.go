@@ -51,7 +51,7 @@ func (c *Consumer) Execute(ctx context.Context, f *flag.FlagSet, _ ...interface{
 	conf.Consumer.Return.Errors = true
 	conf.Group.Return.Notifications = true
 	conf.Group.Session.Timeout = config.Configuration.Kafka.SessionTimeout
-	conf.ClientID = fmt.Sprintf("%v", os.Getpid())
+	conf.ClientID = fmt.Sprintf("%v-", os.Getpid())
 	conf.Consumer.Offsets.Initial = sarama.OffsetNewest
 
 	client, err := cluster.NewClient(split(config.Configuration.Kafka.Brokers), conf)
@@ -85,6 +85,8 @@ loop:
 			consumer.MarkOffset(msg, "")
 		}
 	}
+	checkError(consumer.Close())
+	checkError(client.Close())
 
 	return subcommands.ExitSuccess
 }
