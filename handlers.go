@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"test_kafka/config"
-	"test_kafka/logging"
+	"github.com/mrlyc/sarama-demo/config"
+	"github.com/mrlyc/sarama-demo/logging"
 )
 
 func initRandomSeed() bool {

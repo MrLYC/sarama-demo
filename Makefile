@@ -1,14 +1,14 @@
 VERSION = 0.0.1
 
 ROOTDIR = $(shell pwd)
-APPNAME = test_kafka
-APPPATH = test_kafka
+APPNAME = sarama
+APPPATH = github.com/mrlyc/sarama-demo
 GODIR = $(firstword $(subst :, ,${GOPATH}) /tmp/gopath)
 SRCDIR = ${GODIR}/src/${APPPATH}
 OUTDIR = ${SRCDIR}/bin
 TARGET = ${OUTDIR}/${APPNAME}
 
-GOENV = GOPATH=${GODIR}:${GOPATH} GO15VENDOREXPERIMENT=1
+GOENV = GO15VENDOREXPERIMENT=1
 
 GO = ${GOENV} go
 DEP = ${GOENV} dep
@@ -28,9 +28,7 @@ build: ${SRCDIR}
 	${GO} build -i -ldflags="${DEBUGLDFLAGS}" -o ${TARGET} ${APPPATH}
 
 ${SRCDIR}:
-	mkdir -p bin
-	mkdir -p `dirname "${SRCDIR}"`
-	ln -s ${ROOTDIR} ${SRCDIR}
+	mkdir -p ${OUTDIR}
 
 .PHONY: init
 init: ${SRCDIR} update

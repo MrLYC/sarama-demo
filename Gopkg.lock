@@ -2,6 +2,70 @@
 
 
 [[projects]]
+  digest = "1:9c8312fb77e9c27242307176963dd65c02ad03016f7696026a83214fc45c6566"
+  name = "github.com/DataDog/zstd"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "c7161f8c63c045cbc7ca051dcc969dd0e4054de2"
+  version = "v1.3.5"
+
+[[projects]]
+  digest = "1:51cf92592ce8bade814b7cbde92650d7100bc3c7eeb9d4b813d90ec634217c18"
+  name = "github.com/Shopify/sarama"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "4602b5a8c6e826f9e0737865818dd43b2339a092"
+  version = "v1.21.0"
+
+[[projects]]
+  digest = "1:c8dfacb225ee8b60dbdda6fcf31cf0854f0add69e043b8b51ffb86d677957f70"
+  name = "github.com/bsm/sarama-cluster"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "c618e605e15c0d7535f6c96ff8efbb0dba4fd66c"
+  version = "v2.1.15"
+
+[[projects]]
+  digest = "1:4b8b5811da6970495e04d1f4e98bb89518cc3cfc3b3f456bdb876ed7b6c74049"
+  name = "github.com/davecgh/go-spew"
+  packages = ["spew"]
+  pruneopts = "NT"
+  revision = "8991bc29aa16c548c550c7ff78260e27b9ab7c73"
+  version = "v1.1.1"
+
+[[projects]]
+  digest = "1:10fc3c47c44c6c689df5003224dda60080542ffad59c5d88f8e87c3d410ec3eb"
+  name = "github.com/eapache/go-resiliency"
+  packages = ["breaker"]
+  pruneopts = "NT"
+  revision = "ea41b0fad31007accc7f806884dcdf3da98b79ce"
+  version = "v1.1.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:d3430c048e919ed27813d20dc65a32d4e3bae3ad05b83700e244a81eaaf48e2a"
+  name = "github.com/eapache/go-xerial-snappy"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "776d5712da21bc4762676d614db1d8a64f4238b0"
+
+[[projects]]
+  digest = "1:0d36a2b325b9e75f8057f7f9fbe778d348d70ba652cb9335485b69d1a5c4e038"
+  name = "github.com/eapache/queue"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "44cc805cf13205b55f69e14bcb69867d1ae92f98"
+  version = "v1.1.0"
+
+[[projects]]
+  digest = "1:2975cea4b68121134776e0f636a4b0d260575b0e35c3fc9f513fdcc94e623cb9"
+  name = "github.com/golang/snappy"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "2a8bb927dd31d8daada140a5d09578521ce5c36a"
+  version = "v0.0.1"
+
+[[projects]]
   digest = "1:c2f29d12d7292c05a2b9579e10e71a822b06b5be4b55a16b23fffa6429e13403"
   name = "github.com/google/subcommands"
   packages = ["."]
@@ -9,9 +73,67 @@
   revision = "d47216cd17848d55a33e6f651cbe408243ed55b8"
   version = "1.0.1"
 
+[[projects]]
+  digest = "1:cbe8a2afc023f763aaf537ea4628bb9d7c18846c33d98150d72d7ccffacf466d"
+  name = "github.com/pierrec/lz4"
+  packages = [
+    ".",
+    "internal/xxh32",
+  ]
+  pruneopts = "NT"
+  revision = "062282ea0dcff40c9fb8525789eef9644b1fbd6e"
+  version = "v2.1.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:c909720628f10ea0972005d51589910641b53c4c9e13bebba0f6e8498b4c90d9"
+  name = "github.com/rcrowley/go-metrics"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "3113b8401b8a98917cde58f8bbd42a1b1c03b1fd"
+
+[[projects]]
+  digest = "1:572debc0b417d3fb235f920559bcfdaf8c95897e680b6f6bcbcc707e13d647ec"
+  name = "github.com/sirupsen/logrus"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "a3f95b5c423586578a4e099b11a46c2479628cac"
+  version = "1.0.2"
+
+[[projects]]
+  branch = "master"
+  digest = "1:a090fa08e475297ec839539e91eb75bd081129e242e324ac5506b55a13ddd014"
+  name = "golang.org/x/sys"
+  packages = ["unix"]
+  pruneopts = "NT"
+  revision = "a2f829d7f35f2ed1c3520c553a6226495455cae0"
+
+[[projects]]
+  branch = "v2"
+  digest = "1:1ab6db2d2bd353449c5d1e976ba7a92a0ece6e83aaab3e6674f8f2f1faebb85a"
+  name = "gopkg.in/validator.v2"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "135c24b11c19e52befcae2ec3fca5d9b78c4e98e"
+
+[[projects]]
+  digest = "1:18108594151654e9e696b27b181b953f9a90b16bf14d253dd1b397b025a1487f"
+  name = "gopkg.in/yaml.v2"
+  packages = ["."]
+  pruneopts = "NT"
+  revision = "51d6538a90f86fe93ac480b35f37b2be17fef232"
+  version = "v2.2.2"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = ["github.com/google/subcommands"]
+  input-imports = [
+    "github.com/Shopify/sarama",
+    "github.com/bsm/sarama-cluster",
+    "github.com/google/subcommands",
+    "github.com/sirupsen/logrus",
+    "gopkg.in/validator.v2",
+    "gopkg.in/yaml.v2",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -7,10 +7,10 @@ import (
 	"os/signal"
 	"syscall"
 
-	"test_kafka/config"
-	"test_kafka/test_kafka"
-
 	"github.com/google/subcommands"
+
+	"github.com/mrlyc/sarama-demo/config"
+	"github.com/mrlyc/sarama-demo/sarama"
 )
 
 type initialHandler func() bool
@@ -21,8 +21,8 @@ func main() {
 	subcommands.Register(subcommands.CommandsCommand(), "")
 	subcommands.Register(&config.VersionCommand{}, "")
 	subcommands.Register(&config.ConfInfoCommand{}, "")
-	subcommands.Register(&test_kafka.Productor{}, "")
-	subcommands.Register(&test_kafka.Consumer{}, "")
+	subcommands.Register(&sarama.Productor{}, "")
+	subcommands.Register(&sarama.Consumer{}, "")
 
 	flag.StringVar(
 		&(config.Configuration.ConfigurationPath),

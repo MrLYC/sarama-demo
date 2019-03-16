@@ -9,17 +9,17 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-// Mode for test_kafka
+// Mode for sarama
 var Mode = "debug"
 
-// Version for test_kafka
+// Version for sarama
 var Version = "0.0.0"
 
 // BuildHash from vcs
 var BuildHash = ""
 
-// AppName for test_kafka
-var AppName = "test_kafka"
+// AppName for sarama
+var AppName = "sarama"
 
 // IConfiguration : configuration interface
 type IConfiguration interface {

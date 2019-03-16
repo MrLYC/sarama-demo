@@ -1,7 +1,7 @@
 package logging
 
 import (
-	"test_kafka/config"
+	"github.com/mrlyc/sarama-demo/config"
 	"github.com/sirupsen/logrus"
 )
 
