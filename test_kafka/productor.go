@@ -4,7 +4,6 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"strings"
 	"time"
 
 	"test_kafka/config"
@@ -52,12 +51,13 @@ func (p *Productor) Execute(ctx context.Context, f *flag.FlagSet, _ ...interface
 	conf.Producer.Retry.Max = 10
 	conf.Producer.Return.Successes = true
 
-	producer, err := sarama.NewSyncProducer(strings.Split(config.Configuration.Kafka.Brokers, ","), conf)
+	producer, err := sarama.NewSyncProducer(split(config.Configuration.Kafka.Brokers), conf)
 	checkError(err)
 
 	interval, err := time.ParseDuration(p.interval)
 	checkError(err)
 
+	topics := split(p.topic)
 	ticker := time.NewTicker(interval)
 
 loop:
@@ -67,14 +67,16 @@ loop:
 			break loop
 		case t := <-ticker.C:
 			data := fmt.Sprintf("%v", t.Unix())
-			partition, offset, err := producer.SendMessage(&sarama.ProducerMessage{
-				Topic: p.topic,
-				Value: sarama.StringEncoder(data),
-			})
-			if err != nil {
-				logger.Infof("send to %s error %v", p.topic, err)
-			} else {
-				logger.Infof("send to %s/%d:%d %v", p.topic, partition, offset, data)
+			for _, topic := range topics {
+				partition, offset, err := producer.SendMessage(&sarama.ProducerMessage{
+					Topic: topic,
+					Value: sarama.StringEncoder(data),
+				})
+				if err != nil {
+					logger.Infof("send to %s error %v", topic, err)
+				} else {
+					logger.Infof("send to %s/%d:%d %v", topic, partition, offset, data)
+				}
 			}
 		}
 	}

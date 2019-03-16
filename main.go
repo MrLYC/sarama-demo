@@ -22,6 +22,7 @@ func main() {
 	subcommands.Register(&config.VersionCommand{}, "")
 	subcommands.Register(&config.ConfInfoCommand{}, "")
 	subcommands.Register(&test_kafka.Productor{}, "")
+	subcommands.Register(&test_kafka.Consumer{}, "")
 
 	flag.StringVar(
 		&(config.Configuration.ConfigurationPath),
