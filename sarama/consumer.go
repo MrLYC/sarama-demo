@@ -3,6 +3,8 @@ package sarama
 import (
 	"context"
 	"flag"
+	"fmt"
+	"os"
 
 	"github.com/Shopify/sarama"
 	"github.com/bsm/sarama-cluster"
@@ -14,9 +16,9 @@ import (
 
 // Consumer :
 type Consumer struct {
-	topic    string
-	group    string
-	interval string
+	topic  string
+	group  string
+	client string
 }
 
 // Name :
@@ -38,7 +40,6 @@ func (*Consumer) Usage() string {
 func (c *Consumer) SetFlags(f *flag.FlagSet) {
 	f.StringVar(&c.topic, "topic", "test", "consumer topic")
 	f.StringVar(&c.group, "group", "test", "consumer group")
-	f.StringVar(&c.interval, "interval", "1s", "consumer interval")
 }
 
 // Execute :
@@ -49,7 +50,8 @@ func (c *Consumer) Execute(ctx context.Context, f *flag.FlagSet, _ ...interface{
 	conf := cluster.NewConfig()
 	conf.Consumer.Return.Errors = true
 	conf.Group.Return.Notifications = true
-	conf.ClientID = "consumer"
+	conf.Group.Session.Timeout = config.Configuration.Kafka.SessionTimeout
+	conf.ClientID = fmt.Sprintf("%v", os.Getpid())
 	conf.Consumer.Offsets.Initial = sarama.OffsetNewest
 
 	client, err := cluster.NewClient(split(config.Configuration.Kafka.Brokers), conf)
