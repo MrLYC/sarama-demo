@@ -4,10 +4,13 @@ import (
 	"context"
 	"flag"
 	"os"
+	"os/signal"
+	"syscall"
+
+	"test_kafka/config"
+	"test_kafka/test_kafka"
 
 	"github.com/google/subcommands"
-	"test_kafka/test_kafka"
-	"test_kafka/config"
 )
 
 type initialHandler func() bool
@@ -39,6 +42,17 @@ func main() {
 		}
 	}
 
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
+	signalCh := make(chan os.Signal, 1)
+	signal.Notify(signalCh, syscall.SIGINT, syscall.SIGTERM)
+	go func() {
+		for {
+			switch <-signalCh {
+			case syscall.SIGINT:
+				cancel()
+			}
+		}
+	}()
+
 	os.Exit(int(subcommands.Execute(ctx)))
 }

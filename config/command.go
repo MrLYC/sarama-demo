@@ -33,7 +33,7 @@ func (*VersionCommand) SetFlags(f *flag.FlagSet) {
 }
 
 // Execute :
-func (p *VersionCommand) Execute(_ context.Context, f *flag.FlagSet, _ ...interface{}) subcommands.ExitStatus {
+func (p *VersionCommand) Execute(ctx context.Context, f *flag.FlagSet, _ ...interface{}) subcommands.ExitStatus {
 	fmt.Printf("Mode: %v, Version: %v, BuildHash: %v\n", Mode, Version, BuildHash)
 	return subcommands.ExitSuccess
 }
@@ -63,7 +63,7 @@ func (*ConfInfoCommand) SetFlags(f *flag.FlagSet) {
 }
 
 // Execute :
-func (p *ConfInfoCommand) Execute(_ context.Context, f *flag.FlagSet, _ ...interface{}) subcommands.ExitStatus {
+func (p *ConfInfoCommand) Execute(ctx context.Context, f *flag.FlagSet, _ ...interface{}) subcommands.ExitStatus {
 	data, err := Configuration.Dumps()
 	if err != nil {
 		panic(err)
