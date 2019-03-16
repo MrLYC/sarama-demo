@@ -14,8 +14,9 @@ import (
 
 // Consumer :
 type Consumer struct {
-	topic string
-	group string
+	topic    string
+	group    string
+	interval string
 }
 
 // Name :
@@ -34,13 +35,14 @@ func (*Consumer) Usage() string {
 }
 
 // SetFlags :
-func (p *Consumer) SetFlags(f *flag.FlagSet) {
-	f.StringVar(&p.topic, "topic", "test", "consumer topic")
-	f.StringVar(&p.group, "group", "test", "consumer group")
+func (c *Consumer) SetFlags(f *flag.FlagSet) {
+	f.StringVar(&c.topic, "topic", "test", "consumer topic")
+	f.StringVar(&c.group, "group", "test", "consumer group")
+	f.StringVar(&c.interval, "interval", "1s", "consumer interval")
 }
 
 // Execute :
-func (p *Consumer) Execute(ctx context.Context, f *flag.FlagSet, _ ...interface{}) subcommands.ExitStatus {
+func (c *Consumer) Execute(ctx context.Context, f *flag.FlagSet, _ ...interface{}) subcommands.ExitStatus {
 	logger := logging.GetLogger()
 	logger.Infof("consumer running")
 
@@ -53,7 +55,7 @@ func (p *Consumer) Execute(ctx context.Context, f *flag.FlagSet, _ ...interface{
 	client, err := cluster.NewClient(split(config.Configuration.Kafka.Brokers), conf)
 	checkError(err)
 
-	consumer, err := cluster.NewConsumerFromClient(client, p.group, split(p.topic))
+	consumer, err := cluster.NewConsumerFromClient(client, c.group, []string{c.topic})
 loop:
 	for {
 		select {
@@ -65,6 +67,7 @@ loop:
 				break loop
 			}
 			logger.Infof("notification %v, current %v, claimed %v, released %v", ntf.Type, ntf.Current, ntf.Claimed, ntf.Released)
+
 		case e, ok := <-consumer.Errors():
 			if !ok {
 				logger.Infof("error channel closed")
@@ -77,6 +80,7 @@ loop:
 				break loop
 			}
 			logger.Infof("receive from %s/%d:%d %v", msg.Topic, msg.Partition, msg.Offset, string(msg.Value))
+			consumer.MarkOffset(msg, "")
 		}
 	}
 
